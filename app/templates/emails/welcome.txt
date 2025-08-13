@@ -1,0 +1,27 @@
+Welcome to {{ platform_name }}!
+
+Hi {{ first_name | default('there') }}!
+
+Thank you for joining us. Your account has been successfully created and you're now part of our growing community.
+
+Here's what you can do next:
+✅ Complete your profile setup
+🚀 Explore our powerful features
+👥 Join or create an organization
+🔒 Set up two-factor authentication for enhanced security
+📱 Connect your social accounts for easier access
+
+Ready to get started?
+Visit your dashboard: {{ frontend_url }}/dashboard
+
+SECURITY TIP: We recommend enabling two-factor authentication (MFA) to keep your account secure. You can set this up in your account security settings.
+
+If you have any questions or need assistance, our support team is here to help. Feel free to reach out!
+
+Welcome aboard! 🎉
+
+---
+This email was sent to {{ email }}
+If you didn't sign up for this account, please contact us immediately: {{ frontend_url }}/contact
+
+© {{ current_year }} {{ company_name }}. All rights reserved.

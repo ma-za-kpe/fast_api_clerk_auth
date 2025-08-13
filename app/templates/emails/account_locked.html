@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block theme_styles %}
+.header { background: linear-gradient(135deg, #fd7e14 0%, #e55100 100%); }
+.button { background: linear-gradient(135deg, #fd7e14 0%, #e55100 100%); }
+{% endblock %}
+
+{% block header_icon %}<div class="header-icon">🔒</div>{% endblock %}
+{% block header_title %}Account Temporarily Locked{% endblock %}
+
+{% block content %}
+<div class="alert alert-warning">
+    <strong>🔒 Account Locked:</strong> Your account has been temporarily locked for security reasons
+</div>
+
+<p><strong>Hello {{ first_name | default('User') }},</strong></p>
+
+<p>We've temporarily locked your account to protect it from potential security threats.</p>
+
+<div style="background-color: #fff3cd; border-left: 4px solid #fd7e14; padding: 20px; margin: 20px 0;">
+    <h3 style="margin-top: 0; color: #fd7e14;">Lock Details:</h3>
+    <ul style="list-style: none; padding-left: 0;">
+        <li><strong>🕐 Locked at:</strong> {{ lock_time }}</li>
+        <li><strong>🔍 Reason:</strong> {{ lock_reason }}</li>
+        <li><strong>⏱️ Auto-unlock:</strong> {{ unlock_time | default('Contact support to unlock') }}</li>
+        <li><strong>🌐 Triggered by IP:</strong> {{ ip_address | default('Multiple locations') }}</li>
+    </ul>
+</div>
+
+<h3>Why was my account locked?</h3>
+<p>{{ lock_reason_description | default('We detected suspicious activity that triggered our security systems.') }}</p>
+
+<div class="alert alert-info">
+    <strong>Common reasons for account locks:</strong>
+    <ul style="margin-bottom: 0;">
+        <li>Multiple failed login attempts</li>
+        <li>Login from unusual locations</li>
+        <li>Suspicious activity patterns</li>
+        <li>Reported security concerns</li>
+        <li>Violation of terms of service</li>
+    </ul>
+</div>
+
+<h3>How to unlock your account:</h3>
+
+{% if can_self_unlock %}
+<div class="cta-section">
+    <p><strong>You can unlock your account using the button below:</strong></p>
+    <a href="{{ unlock_url }}" class="button">Unlock My Account</a>
+    <p style="font-size: 14px; margin-top: 15px;">This link expires in {{ unlock_expiry | default('24 hours') }}</p>
+</div>
+{% else %}
+<div class="alert alert-warning">
+    <strong>⚠️ Manual Review Required:</strong><br>
+    Due to the nature of the security concern, your account requires manual review by our security team. Please contact support to proceed with unlocking.
+</div>
+
+<div class="cta-section">
+    <a href="{{ frontend_url }}/contact-security" class="button">Contact Security Team</a>
+</div>
+{% endif %}
+
+<h3>Prevent future lockouts:</h3>
+<div style="background-color: #d4edda; border-left: 4px solid #28a745; padding: 20px; margin: 20px 0;">
+    <ul style="margin-bottom: 0; color: #155724;">
+        <li>✅ Use strong, unique passwords</li>
+        <li>🔐 Enable two-factor authentication</li>
+        <li>🌐 Avoid public Wi-Fi for sensitive activities</li>
+        <li>📧 Keep your email address updated</li>
+        <li>🚨 Report suspicious emails or activities</li>
+    </ul>
+</div>
+
+<p>We apologize for any inconvenience. Account security is our top priority, and these measures help protect you and our community.</p>
+
+<p><strong>Need immediate assistance?</strong><br>
+Contact our security team: <a href="mailto:security@{{ company_domain }}">security@{{ company_domain }}</a></p>
+{% endblock %}
+
+{% block footer_content %}
+<p>This account security notice was sent to <strong>{{ email }}</strong></p>
+<p>Account ID: {{ user_id | default('Hidden') }} | Lock ID: {{ lock_id | default('N/A') }}</p>
+<p>&copy; {{ current_year }} {{ company_name }} Security Team. All rights reserved.</p>
+{% endblock %}

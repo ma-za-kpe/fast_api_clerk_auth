@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>You're invited to join {{ org_name }}</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            line-height: 1.6; 
+            color: #333; 
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container { 
+            max-width: 600px; 
+            margin: 0 auto; 
+            background-color: #ffffff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .header { 
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white; 
+            padding: 30px 20px; 
+            text-align: center; 
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 28px;
+            font-weight: 300;
+        }
+        .header-icon {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+        .content { 
+            padding: 30px 20px; 
+        }
+        .invitation-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border: 2px solid #28a745;
+            border-radius: 10px;
+            padding: 25px;
+            text-align: center;
+            margin: 25px 0;
+        }
+        .org-name {
+            font-size: 24px;
+            font-weight: bold;
+            color: #28a745;
+            margin: 10px 0;
+        }
+        .inviter-info {
+            background-color: #e7f3ff;
+            border-left: 4px solid #007bff;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .cta-section {
+            text-align: center;
+            margin: 30px 0;
+            padding: 20px;
+        }
+        .button { 
+            display: inline-block; 
+            padding: 15px 30px; 
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white !important; 
+            text-decoration: none; 
+            border-radius: 25px;
+            font-weight: 500;
+            font-size: 16px;
+            transition: transform 0.2s;
+            box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+        }
+        .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
+        }
+        .benefits {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .benefits h3 {
+            color: #28a745;
+            margin-top: 0;
+        }
+        .benefits ul li {
+            margin-bottom: 8px;
+        }
+        .footer { 
+            text-align: center; 
+            padding: 20px; 
+            background-color: #f8f9fa;
+            color: #666; 
+            font-size: 14px;
+            border-top: 1px solid #dee2e6;
+        }
+        .footer p {
+            margin: 5px 0;
+        }
+        .expiry-notice {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+            padding: 12px;
+            border-radius: 5px;
+            margin: 20px 0;
+            font-size: 14px;
+            text-align: center;
+        }
+        @media only screen and (max-width: 600px) {
+            .container { width: 100% !important; }
+            .content { padding: 20px 15px !important; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-icon">🎉</div>
+            <h1>You're Invited!</h1>
+        </div>
+        <div class="content">
+            <div class="invitation-card">
+                <p style="margin-top: 0;">You've been invited to join</p>
+                <div class="org-name">{{ org_name }}</div>
+                <p style="margin-bottom: 0;">Let's collaborate together!</p>
+            </div>
+            
+            <div class="inviter-info">
+                <strong>📧 Invited by:</strong> {{ inviter_name }}<br>
+                <strong>📅 Invitation sent:</strong> {{ invitation_date | default('today') }}<br>
+                {% if role %}<strong>👤 Role:</strong> {{ role }}<br>{% endif %}
+            </div>
+            
+            <p>Hi there! 👋</p>
+            <p>You've been invited to join <strong>{{ org_name }}</strong> and become part of our team. We're excited to have you collaborate with us!</p>
+            
+            <div class="benefits">
+                <h3>🚀 What you'll get access to:</h3>
+                <ul>
+                    <li>✅ Collaborate with team members</li>
+                    <li>📊 Access shared resources and projects</li>
+                    <li>💬 Join team discussions and updates</li>
+                    <li>🔧 Use organization-specific tools and features</li>
+                    <li>📈 Track progress and contribute to goals</li>
+                </ul>
+            </div>
+            
+            <div class="cta-section">
+                <p><strong>Ready to join the team?</strong></p>
+                <a href="{{ accept_url }}" class="button">Accept Invitation</a>
+            </div>
+            
+            <div class="expiry-notice">
+                ⏰ <strong>This invitation expires in 7 days</strong> - Don't miss out!
+            </div>
+            
+            <p>If you don't want to join this organization or received this invitation by mistake, you can safely ignore this email.</p>
+            
+            <p>Questions? Feel free to reach out to <strong>{{ inviter_name }}</strong> or our support team.</p>
+        </div>
+        <div class="footer">
+            <p>This invitation was sent to <strong>{{ email }}</strong></p>
+            <p>If you have any concerns about this invitation, please <a href="{{ frontend_url }}/contact">contact us</a>.</p>
+            <p>&copy; {{ current_year }} {{ company_name }}. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,18 @@
+version: '3.9'
+
+# Development override configuration
+# Copy this to docker-compose.override.yml for local development
+
+services:
+  fastapi:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./app:/app/app
+      - ./tests:/app/tests
+      - ./alembic:/app/alembic
+    environment:
+      - DEBUG=true
+      - ENVIRONMENT=development
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload --log-level debug

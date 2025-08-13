@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Two-Factor Authentication Code</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            line-height: 1.6; 
+            color: #333; 
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container { 
+            max-width: 600px; 
+            margin: 0 auto; 
+            background-color: #ffffff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .header { 
+            background: linear-gradient(135deg, #ffc107 0%, #e0a800 100%);
+            color: #212529; 
+            padding: 30px 20px; 
+            text-align: center; 
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 28px;
+            font-weight: 400;
+        }
+        .header-icon {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+        .content { 
+            padding: 30px 20px; 
+            text-align: center;
+        }
+        .mfa-card {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+            border: 3px solid #ffc107;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 25px 0;
+        }
+        .code { 
+            font-size: 48px; 
+            font-weight: bold; 
+            text-align: center; 
+            padding: 25px 20px; 
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border: 4px solid #ffc107; 
+            margin: 20px 0; 
+            letter-spacing: 12px;
+            border-radius: 10px;
+            color: #ffc107;
+            font-family: 'Courier New', monospace;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 15px rgba(255, 193, 7, 0.2);
+        }
+        .urgency-notice {
+            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 25px 0;
+            font-size: 16px;
+            font-weight: 500;
+        }
+        .instructions {
+            background-color: #e7f3ff;
+            border: 1px solid #b3d9ff;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 25px 0;
+            text-align: left;
+        }
+        .instructions h3 {
+            color: #0066cc;
+            margin-top: 0;
+        }
+        .instructions ol {
+            padding-left: 20px;
+        }
+        .instructions li {
+            margin-bottom: 8px;
+        }
+        .security-section {
+            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+            border: 2px solid #28a745;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 25px 0;
+            text-align: left;
+        }
+        .security-section h3 {
+            color: #155724;
+            margin-top: 0;
+        }
+        .security-tips {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .security-tips li {
+            margin-bottom: 8px;
+            padding-left: 25px;
+            position: relative;
+        }
+        .security-tips li::before {
+            content: "🔒";
+            position: absolute;
+            left: 0;
+        }
+        .footer { 
+            text-align: center; 
+            padding: 20px; 
+            background-color: #f8f9fa;
+            color: #666; 
+            font-size: 14px;
+            border-top: 1px solid #dee2e6;
+        }
+        .footer p {
+            margin: 5px 0;
+        }
+        .suspicious-activity {
+            background-color: #f8d7da;
+            border: 2px solid #dc3545;
+            color: #721c24;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-weight: 500;
+        }
+        @media only screen and (max-width: 600px) {
+            .container { width: 100% !important; }
+            .content { padding: 20px 15px !important; }
+            .code { 
+                font-size: 36px !important; 
+                letter-spacing: 8px !important; 
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-icon">🔐</div>
+            <h1>Two-Factor Authentication</h1>
+        </div>
+        <div class="content">
+            <div class="mfa-card">
+                <p style="font-size: 20px; margin-bottom: 20px;"><strong>Your authentication code is:</strong></p>
+                <div class="code">{{ code }}</div>
+            </div>
+            
+            <div class="urgency-notice">
+                ⚡ <strong>Time Sensitive:</strong> This code expires in <strong>5 minutes</strong>
+            </div>
+            
+            <div class="instructions">
+                <h3>🔍 How to use this code:</h3>
+                <ol>
+                    <li>Return to the login page where you were asked for the MFA code</li>
+                    <li>Enter the 6-digit code shown above</li>
+                    <li>Click "Verify" to complete your secure login</li>
+                </ol>
+            </div>
+            
+            <div class="security-section">
+                <h3>🛡️ Security Best Practices:</h3>
+                <ul class="security-tips">
+                    <li>Never share this code with anyone, including support staff</li>
+                    <li>We will never ask for this code via phone or email</li>
+                    <li>If you receive unexpected codes, secure your account immediately</li>
+                    <li>This code is only valid for the current login attempt</li>
+                </ul>
+            </div>
+            
+            <div class="suspicious-activity">
+                <strong>🚨 Didn't attempt to log in?</strong><br>
+                If you didn't try to access your account, someone may be attempting unauthorized access. Please:
+                <ul style="margin-top: 10px;">
+                    <li>Change your password immediately</li>
+                    <li>Review your recent account activity</li>
+                    <li>Contact our security team</li>
+                </ul>
+            </div>
+            
+            <p><strong>Need immediate help?</strong> Contact our security team at <a href="{{ frontend_url }}/security-support">{{ frontend_url }}/security-support</a></p>
+        </div>
+        <div class="footer">
+            <p>This authentication code was requested for <strong>{{ email }}</strong></p>
+            <p><strong>Login attempt from:</strong> {{ user_agent | default('Unknown device') }}</p>
+            <p><strong>IP Address:</strong> {{ ip_address | default('Unknown') }}</p>
+            <p>This is an automated security message. Please do not reply to this email.</p>
+            <p>&copy; {{ current_year }} {{ company_name }}. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>

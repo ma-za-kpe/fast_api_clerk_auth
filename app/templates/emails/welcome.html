@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to {{ platform_name }}</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            line-height: 1.6; 
+            color: #333; 
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container { 
+            max-width: 600px; 
+            margin: 0 auto; 
+            background-color: #ffffff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .header { 
+            background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+            color: white; 
+            padding: 30px 20px; 
+            text-align: center; 
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 28px;
+            font-weight: 300;
+        }
+        .content { 
+            padding: 30px 20px; 
+        }
+        .content h2 {
+            color: #007bff;
+            margin-top: 0;
+            font-size: 24px;
+            font-weight: 400;
+        }
+        .feature-list {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .feature-list li {
+            margin-bottom: 8px;
+        }
+        .cta-section {
+            text-align: center;
+            margin: 30px 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+        }
+        .button { 
+            display: inline-block; 
+            padding: 15px 30px; 
+            background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+            color: white !important; 
+            text-decoration: none; 
+            border-radius: 25px;
+            font-weight: 500;
+            font-size: 16px;
+            transition: transform 0.2s;
+        }
+        .button:hover {
+            transform: translateY(-2px);
+        }
+        .footer { 
+            text-align: center; 
+            padding: 20px; 
+            background-color: #f8f9fa;
+            color: #666; 
+            font-size: 14px;
+            border-top: 1px solid #dee2e6;
+        }
+        .footer p {
+            margin: 5px 0;
+        }
+        .security-tip {
+            background-color: #e7f3ff;
+            border: 1px solid #b3d9ff;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            font-size: 14px;
+        }
+        @media only screen and (max-width: 600px) {
+            .container { width: 100% !important; }
+            .content { padding: 20px 15px !important; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Welcome to {{ platform_name }}!</h1>
+        </div>
+        <div class="content">
+            <h2>Hi {{ first_name | default('there') }}! 👋</h2>
+            <p>Thank you for joining us. Your account has been successfully created and you're now part of our growing community.</p>
+            
+            <div class="feature-list">
+                <h3>Here's what you can do next:</h3>
+                <ul>
+                    <li>✅ Complete your profile setup</li>
+                    <li>🚀 Explore our powerful features</li>
+                    <li>👥 Join or create an organization</li>
+                    <li>🔒 Set up two-factor authentication for enhanced security</li>
+                    <li>📱 Connect your social accounts for easier access</li>
+                </ul>
+            </div>
+            
+            <div class="cta-section">
+                <p><strong>Ready to get started?</strong></p>
+                <a href="{{ frontend_url }}/dashboard" class="button">Go to Dashboard</a>
+            </div>
+            
+            <div class="security-tip">
+                <strong>Security Tip:</strong> We recommend enabling two-factor authentication (MFA) to keep your account secure. You can set this up in your account security settings.
+            </div>
+            
+            <p>If you have any questions or need assistance, our support team is here to help. Feel free to reach out!</p>
+            
+            <p>Welcome aboard! 🎉</p>
+        </div>
+        <div class="footer">
+            <p>This email was sent to <strong>{{ email }}</strong></p>
+            <p>If you didn't sign up for this account, please <a href="{{ frontend_url }}/contact">contact us</a> immediately.</p>
+            <p>&copy; {{ current_year }} {{ company_name }}. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>

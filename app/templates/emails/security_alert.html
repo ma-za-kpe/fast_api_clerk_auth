@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block theme_styles %}
+.header { background: linear-gradient(135deg, #dc3545 0%, #c82333 100%); }
+.button { background: linear-gradient(135deg, #dc3545 0%, #c82333 100%); }
+{% endblock %}
+
+{% block header_icon %}<div class="header-icon">🚨</div>{% endblock %}
+{% block header_title %}Security Alert{% endblock %}
+
+{% block content %}
+<div class="alert alert-danger">
+    <strong>⚠️ SECURITY ALERT:</strong> {{ alert_type | title }} detected on your account
+</div>
+
+<p><strong>Hello {{ first_name | default('User') }},</strong></p>
+
+<p>We detected {{ alert_description }} on your account. Here are the details:</p>
+
+<div style="background-color: #f8f9fa; border-left: 4px solid #dc3545; padding: 20px; margin: 20px 0;">
+    <h3 style="margin-top: 0; color: #dc3545;">Incident Details:</h3>
+    <ul style="list-style: none; padding-left: 0;">
+        <li><strong>📅 Date & Time:</strong> {{ incident_time }}</li>
+        <li><strong>🌍 Location:</strong> {{ location | default('Unknown') }}</li>
+        <li><strong>🖥️ Device:</strong> {{ user_agent | default('Unknown device') }}</li>
+        <li><strong>🌐 IP Address:</strong> {{ ip_address | default('Hidden for security') }}</li>
+        <li><strong>🎯 Event Type:</strong> {{ alert_type }}</li>
+    </ul>
+</div>
+
+<h3>What happened?</h3>
+<p>{{ alert_description }}</p>
+
+<h3>What should you do?</h3>
+<div class="alert alert-info">
+    <strong>Immediate Actions Recommended:</strong>
+    <ul style="margin-bottom: 0;">
+        {% for action in recommended_actions %}
+        <li>{{ action }}</li>
+        {% endfor %}
+    </ul>
+</div>
+
+{% if was_you %}
+<div class="alert alert-success">
+    <strong>✅ Was this you?</strong><br>
+    If you recognize this activity, no further action is needed. We recommend enabling additional security measures like two-factor authentication.
+</div>
+{% endif %}
+
+<div class="cta-section">
+    <p><strong>Secure your account now:</strong></p>
+    <a href="{{ frontend_url }}/account/security" class="button">Review Security Settings</a>
+</div>
+
+<div class="alert alert-warning">
+    <strong>🔒 Security Tip:</strong> Keep your account secure by using a strong, unique password and enabling two-factor authentication.
+</div>
+
+<p>If you didn't perform this action or have concerns about your account security, please contact our security team immediately.</p>
+
+<p><strong>Questions or concerns?</strong></p>
+<p>Contact our security team: <a href="mailto:security@{{ company_domain }}">security@{{ company_domain }}</a></p>
+{% endblock %}
+
+{% block footer_content %}
+<p>This security alert was sent to <strong>{{ email }}</strong></p>
+<p><strong>This is a critical security notification that cannot be unsubscribed.</strong></p>
+<p>Report security issues: <a href="{{ frontend_url }}/security-report">{{ frontend_url }}/security-report</a></p>
+<p>&copy; {{ current_year }} {{ company_name }} Security Team. All rights reserved.</p>
+{% endblock %}

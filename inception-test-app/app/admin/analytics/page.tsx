@@ -1,0 +1,146 @@
+'use client';
+
+import { useEffect } from 'react';
+import { useUser } from '@clerk/nextjs';
+import { useRouter } from 'next/navigation';
+import { TrendingUp, BarChart3, PieChart, Activity, ArrowLeft, Shield } from 'lucide-react';
+
+export default function AdminAnalyticsPage() {
+  const { isLoaded, isSignedIn, user } = useUser();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (isLoaded && !isSignedIn) {
+      router.push('/sign-in');
+    }
+  }, [isLoaded, isSignedIn]);
+
+  useEffect(() => {
+    // Check if user is admin
+    if (isLoaded && isSignedIn && user) {
+      const isAdmin = user?.publicMetadata?.is_admin;
+      if (!isAdmin) {
+        router.push('/dashboard');
+      }
+    }
+  }, [isLoaded, isSignedIn, user]);
+
+  if (!isLoaded) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-900 via-violet-900 to-pink-900">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white"></div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-violet-900 to-pink-900">
+      {/* Navigation */}
+      <nav className="bg-black/20 backdrop-blur-xl border-b border-white/10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            <div className="flex items-center gap-8">
+              <div className="flex items-center gap-2">
+                <Shield className="w-8 h-8 text-purple-400" />
+                <span className="text-xl font-bold text-white">Admin Panel</span>
+              </div>
+              <div className="flex items-center gap-6">
+                <a href="/admin/dashboard" className="text-gray-300 hover:text-white">Overview</a>
+                <a href="/admin/users" className="text-gray-300 hover:text-white">Users</a>
+                <a href="/admin/analytics" className="text-white font-medium">Analytics</a>
+              </div>
+            </div>
+            <button
+              onClick={() => router.push('/admin/dashboard')}
+              className="px-4 py-2 bg-white/10 hover:bg-white/20 border border-white/20 rounded-lg text-white text-sm transition-colors"
+            >
+              Back to Dashboard
+            </button>
+          </div>
+        </div>
+      </nav>
+
+      {/* Main Content */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="text-center">
+          {/* Header */}
+          <div className="mb-8">
+            <button
+              onClick={() => router.push('/admin/dashboard')}
+              className="inline-flex items-center gap-2 text-gray-400 hover:text-white mb-6 transition-colors"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              Back to Admin Dashboard
+            </button>
+            <h1 className="text-4xl font-bold text-white mb-4">Platform Analytics</h1>
+            <p className="text-gray-300 text-lg">
+              Comprehensive analytics and insights for your platform
+            </p>
+          </div>
+
+          {/* Coming Soon Card */}
+          <div className="bg-black/30 backdrop-blur-xl border border-white/10 rounded-2xl p-12 max-w-3xl mx-auto">
+            <div className="flex justify-center mb-8">
+              <div className="relative">
+                <div className="w-32 h-32 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full opacity-20 animate-pulse"></div>
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <TrendingUp className="w-16 h-16 text-purple-400" />
+                </div>
+              </div>
+            </div>
+
+            <h2 className="text-2xl font-semibold text-white mb-4">
+              Analytics Dashboard Coming Soon
+            </h2>
+            
+            <p className="text-gray-300 mb-8 leading-relaxed">
+              We're building a comprehensive analytics dashboard to give you deep insights into platform performance, 
+              user behavior, revenue trends, and more.
+            </p>
+
+            {/* Feature Preview */}
+            <div className="grid md:grid-cols-3 gap-6 text-left">
+              <div className="bg-white/5 border border-white/10 rounded-lg p-4">
+                <BarChart3 className="w-8 h-8 text-blue-400 mb-3" />
+                <h3 className="text-white font-medium mb-1">Revenue Analytics</h3>
+                <p className="text-gray-400 text-sm">
+                  Track revenue, transactions, and financial metrics
+                </p>
+              </div>
+              <div className="bg-white/5 border border-white/10 rounded-lg p-4">
+                <PieChart className="w-8 h-8 text-green-400 mb-3" />
+                <h3 className="text-white font-medium mb-1">User Insights</h3>
+                <p className="text-gray-400 text-sm">
+                  User growth, engagement, and behavior patterns
+                </p>
+              </div>
+              <div className="bg-white/5 border border-white/10 rounded-lg p-4">
+                <Activity className="w-8 h-8 text-purple-400 mb-3" />
+                <h3 className="text-white font-medium mb-1">Performance Metrics</h3>
+                <p className="text-gray-400 text-sm">
+                  Project completion rates, developer performance, and more
+                </p>
+              </div>
+            </div>
+
+            {/* Coming Soon Badge */}
+            <div className="mt-8">
+              <span className="inline-flex items-center gap-2 px-4 py-2 bg-purple-500/20 border border-purple-500/40 rounded-full text-purple-300 text-sm">
+                <Activity className="w-4 h-4 animate-pulse" />
+                In Development
+              </span>
+            </div>
+          </div>
+
+          {/* Additional Info */}
+          <div className="mt-8 text-gray-400 text-sm">
+            <p>Expected launch: Q1 2025</p>
+            <p className="mt-2">
+              Need analytics now? Contact support for custom reports.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
